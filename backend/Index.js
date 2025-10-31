@@ -26,10 +26,8 @@ const importData = async () => {
     await Experience.deleteMany(); // clear old data
     await Experience.insertMany(experiences);
     console.log("Data Imported Successfully!");
-    process.exit();
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    process.exit(1);
   }
 };
 
