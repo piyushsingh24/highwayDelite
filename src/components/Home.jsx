@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/experiences");
+        const res = await axios.get("/experiences");
         setExperiences(res.data);
       } catch (err) {
         console.error("Error fetching experiences:", err);

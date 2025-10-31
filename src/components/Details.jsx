@@ -18,7 +18,7 @@ export default function Details() {
   useEffect(() => {
     const fetchExperience = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/experiences/${id}`);
+        const res = await fetch(`experiences/${id}`);
         const data = await res.json();
         setExperience(data);
         setLoading(false);
