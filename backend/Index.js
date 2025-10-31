@@ -31,9 +31,10 @@ const importData = async () => {
   }
 };
 
-importData();
-seedPromos();
-
+if (process.env.NODE_ENV === "development") {
+  importData();
+  seedPromos();
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
