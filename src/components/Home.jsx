@@ -10,27 +10,37 @@ export default function Home() {
   const [error, setError] = useState("");
 
   // ✅ Fetch data from API
-  useEffect(() => {
-    const fetchExperiences = async () => {
-      try {
-        const res = await axios.get("/experiences");
-        setExperiences(res.data);
-      } catch (err) {
-        console.error("Error fetching experiences:", err);
-        setError("Failed to load experiences. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+  const fetchExperiences = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/experiences");
 
-    fetchExperiences();
-  }, []);
+      const list =
+        Array.isArray(res.data) ? res.data :
+        Array.isArray(res.data?.data) ? res.data.data :
+        Array.isArray(res.data?.experiences) ? res.data.experiences : [];
 
-  const filteredExperiences = experiences.filter(
-    (exp) =>
-      exp.title?.toLowerCase().includes(search.toLowerCase()) ||
-      exp.location?.toLowerCase().includes(search.toLowerCase())
-  );
+      setExperiences(list);
+    } catch (err) {
+      setError("Failed to load experiences. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchExperiences();
+}, []);
+
+
+
+  const filteredExperiences = experiences.filter((exp) => {
+    const title = exp.title?.toLowerCase() || "";
+    const location = exp.location?.toLowerCase() || "";
+    const term = search.toLowerCase();
+
+    return title.includes(term) || location.includes(term);
+  });
+
 
   if (loading) {
     return (
@@ -66,8 +76,8 @@ export default function Home() {
                   alt={exp.title}
                   className="w-full h-40 object-cover"
                   onError={(e) =>
-                    (e.target.src =
-                      "https://via.placeholder.com/400x250.png?text=Image+Unavailable")
+                  (e.target.src =
+                    "https://via.placeholder.com/400x250.png?text=Image+Unavailable")
                   }
                 />
                 <div className="p-4">

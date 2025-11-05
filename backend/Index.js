@@ -13,7 +13,7 @@ import promoRoutes from "./router/promoRoutes.js"
 import Experience from "./model/experienceModel.js";
 import experiences from './data/mockExperienceModel.js'
 
-import {seedPromos} from "./data/SeedPromo.js"
+import { seedPromos } from "./data/SeedPromo.js"
 import cors from "cors";
 
 const app = express();
@@ -32,8 +32,8 @@ const importData = async () => {
 };
 
 // if (process.env.NODE_ENV === "development") {
-  importData();
-  seedPromos();
+importData();
+seedPromos();
 // }
 
 app.use(express.json());
@@ -43,8 +43,8 @@ app.use(cors({ origin: "*", credentials: true }));
 
 // Routes
 app.use("/experiences", experienceRoutes);
-app.use('/bookings' , bookingsRoutes)
-app.use('/promo' , promoRoutes)
+app.use('/bookings', bookingsRoutes)
+app.use('/promo', promoRoutes)
 
 // Root route
 app.get("/", (req, res) => {
@@ -53,6 +53,6 @@ app.get("/", (req, res) => {
 
 export default app;
 
-//  Start server
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
