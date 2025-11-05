@@ -1,6 +1,7 @@
 import express from "express";
-import env from 'dotenv/config'
+import dotenv from "dotenv";
 
+dotenv.config();
 
 import connectDB from "./Config/connectDb.js";
 import experienceRoutes from "./router/experienceRoutes.js";
